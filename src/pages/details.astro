@@ -1,0 +1,24 @@
+---
+// IGUAL QUE infro.astro pero con el uso de Object.fromEntries PARA CONVERTIR LA URL EN UN OBJETO Y COMPROBAR SI EXISTE LA PROPIEDAD EJ. movie.id, movie.title, movie.desc, movie.fecha
+
+import Layout from '@layouts/Layout.astro';
+const url = new URL(Astro.request.url);
+const movie = Object.fromEntries(url.searchParams);
+
+
+console.log(Object.keys(movie))
+---
+<Layout title=''>
+  <h1>{movie.id ?? 'No hay id'}</h1>
+  <h1>{movie.title ?? 'No hay title'}</h1>
+  <h1>{movie.desc ?? 'No hay desc'}</h1>
+  <h1>{movie.fecha ?? 'No hay fecha'}</h1>
+
+  <!-- {
+    Object.keys(movie).map( (item: any) => {
+      return (
+        <h1>{item} - {movie[item]}</h1>
+      )
+    })
+  } -->
+</Layout>

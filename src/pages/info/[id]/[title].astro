@@ -1,0 +1,89 @@
+---
+/*
+METODO PARA OBTENER LA INFORMACIÓN A TRAVÉS DE
+
+  export default defineConfig({
+    output: 'server',
+  });
+
+EN EL ARCHIVO astro.config.mjs
+*/
+
+import Layout from '@layouts/Layout.astro';
+import { getData } from '@helpers/getData.ts';
+
+const { id, title } = Astro.params;
+
+const images = await getData.images(+id!);
+---
+
+<Layout title={title!}>
+    <h1>{title}</h1>
+    <div class="container">
+      <h2>Backdrops</h2>
+      <div>
+        {
+          images.backdrops.map((image: any) => (
+            <img
+              src={`https://image.tmdb.org/t/p/w500${image.file_path}`}
+              alt={image.file_path}
+            />
+          ))
+        }
+      </div>
+      <h2>Posters</h2>
+      <div>
+        {
+          images.posters.map((image: any) => (
+            <img
+              src={`https://image.tmdb.org/t/p/w500${image.file_path}`}
+              alt={image.file_path}
+            />
+          ))
+        }
+      </div>
+      <h2>Logos</h2>
+      <div>
+        {
+          images.logos.map((image: any) => (
+            <img
+              src={`https://image.tmdb.org/t/p/w500${image.file_path}`}
+              alt={image.file_path}
+            />
+          ))
+        }
+      </div>
+    </div>
+</Layout>
+
+<style>
+  .container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    gap: 2rem;
+  }
+  h1 {
+    font-family: sans-serif;
+    text-align: center;
+    font-size: 3rem;
+  }
+  h2 {
+    margin: 20px 0;
+    font-family: sans-serif;
+    text-align: center;
+    font-size: 2rem;
+  }
+  div {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(150px, 1fr));
+    gap: 30px;
+    width: 90%;
+    margin: 0 auto;
+  }
+  img {
+    width: 100%;
+    object-fit: cover;
+  }
+</style>
